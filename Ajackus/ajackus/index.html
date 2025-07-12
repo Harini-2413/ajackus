@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Directory</title>
+
+  <!-- ✅ Corrected CSS paths -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <header>
+    <h1>Employee Directory</h1>
+    <div class="search-bar">
+      <input type="text" id="employee-search" placeholder="Search by name or email">
+      <button class="btn btn-search">Search</button>
+    </div>
+    <div class="controls">
+      <label for="sort-by" class="label-sort">Sort:</label>
+      <select id="sort-by" class="select-sort">
+        <option value="firstName">First Name</option>
+        <option value="department">Department</option>
+      </select>
+      <label for="show-entries" class="label-show">Show:</label>
+      <select id="show-entries" class="select-entries">
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+      <button id="add-employee-btn" class="btn btn-primary">Add Employee</button>
+    </div>
+  </header>
+
+  <main class="employee-dashboard-container">
+    <aside class="filter-sidebar" id="filter-sidebar">
+      <h3>Filter Employees</h3>
+      <div class="filter-group">
+        <label for="filter-firstName" class="label-filter">First Name:</label>
+        <input type="text" id="filter-firstName" class="input-filter">
+      </div>
+      <div class="filter-group">
+        <label for="filter-department" class="label-filter">Department:</label>
+        <input type="text" id="filter-department" class="input-filter">
+      </div>
+      <div class="filter-group">
+        <label for="filter-role" class="label-filter">Role:</label>
+        <input type="text" id="filter-role" class="input-filter">
+      </div>
+      <button id="apply-filters" class="btn btn-apply">Apply</button>
+      <button id="reset-filters" class="btn btn-reset">Reset</button>
+    </aside>
+
+    <section class="employee-list-section">
+      <div id="employee-list-container" class="employee-grid"></div>
+      <div class="pagination-controls" id="pagination"></div>
+    </section>
+  </main>
+
+  <div id="employee-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2 class="modal-title">Add/Edit Employee</h2>
+      <form id="employee-form" class="employee-form">
+        <input type="hidden" id="employee-id">
+        <div class="form-group">
+          <label for="employee-firstName" class="form-label">First Name:</label>
+          <input type="text" id="employee-firstName" name="firstName" class="form-input" required>
+          <div class="error-message" id="firstName-error"></div>
+        </div>
+        <div class="form-group">
+          <label for="employee-lastName" class="form-label">Last Name:</label>
+          <input type="text" id="employee-lastName" name="lastName" class="form-input" required>
+          <div class="error-message" id="lastName-error"></div>
+        </div>
+        <div class="form-group">
+          <label for="employee-email" class="form-label">Email:</label>
+          <input type="email" id="employee-email" name="email" class="form-input" required>
+          <div class="error-message" id="email-error"></div>
+        </div>
+        <div class="form-group">
+          <label for="employee-department" class="form-label">Department:</label>
+          <select id="employee-department" name="department" class="form-input" required>
+            <option value="">Select Department</option>
+            <option value="HR">HR</option>
+            <option value="IT">IT</option>
+            <option value="Finance">Finance</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Sales">Sales</option>
+          </select>
+          <div class="error-message" id="department-error"></div>
+        </div>
+        <div class="form-group">
+          <label for="employee-role" class="form-label">Role:</label>
+          <select id="employee-role" name="role" class="form-input" required>
+            <option value="">Select Role</option>
+            <option value="Manager">Manager</option>
+            <option value="Developer">Developer</option>
+            <option value="Analyst">Analyst</option>
+            <option value="Designer">Designer</option>
+            <option value="Recruiter">Recruiter</option>
+            <option value="Accountant">Accountant</option>
+            <option value="QA Engineer">QA Engineer</option>
+            <option value="HR Specialist">HR Specialist</option>
+            <option value="Financial Analyst">Financial Analyst</option>
+            <option value="DevOps Engineer">DevOps Engineer</option>
+            <option value="Payroll Specialist">Payroll Specialist</option>
+            <option value="Network Engineer">Network Engineer</option>
+            <option value="Auditor">Auditor</option>
+            <option value="Frontend Developer">Frontend Developer</option>
+            <option value="Backend Developer">Backend Developer</option>
+            <option value="Sales Representative">Sales Representative</option>
+            <option value="Marketing Coordinator">Marketing Coordinator</option>
+          </select>
+          <div class="error-message" id="role-error"></div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-cancel">Cancel</button>
+          <button type="submit" class="btn btn-add-update">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Employee Directory App. All rights reserved.</p>
+  </footer>
+
+  <!-- ✅ Corrected JS paths -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/form.js"></script>
+  <script src="js/filters.js"></script>
+</body>
+</html>

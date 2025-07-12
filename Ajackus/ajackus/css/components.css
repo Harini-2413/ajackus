@@ -1,0 +1,50 @@
+/* Components Styles */
+
+.employee-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    transition: transform 0.2s ease-in-out;
+}
+
+.employee-card:hover {
+    transform: translateY(-5px);
+}
+
+.employee-card h3 {
+    margin-bottom: var(--spacing-xs);
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.employee-card p {
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.employee-card .card-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    justify-content: flex-end; /* Align buttons to the right */
+}
+
+.employee-card .card-actions .btn {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: 0.9rem;
+}
+
+.employee-card .card-actions .btn-edit {
+    background-color: var(--info-color);
+    border-color: var(--info-color);
+}
+
+.employee-card .card-actions .btn-edit:hover {
+    background-color: #138496;
+    border-color: #138496;
+}
