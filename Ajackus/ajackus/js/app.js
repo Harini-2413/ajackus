@@ -1,9 +1,8 @@
 const App = (function() {
-    let employees = []; // This will hold the active list of employees, derived from mockEmployees
+    let employees = []; 
     let currentPage = 1;
     let itemsPerPage = 10;
-    let filteredAndSortedEmployees = []; // Store the currently filtered/sorted data
-
+    let filteredAndSortedEmployees = []; 
     const employeeListContainer = document.getElementById('employee-list-container');
     const paginationContainer = document.getElementById('pagination');
     const addEmployeeBtn = document.getElementById('add-employee-btn');
@@ -11,7 +10,6 @@ const App = (function() {
     const showEntriesSelect = document.getElementById('show-entries');
     const employeeSearchInput = document.getElementById('employee-search');
 
-    // Helper to create an employee card HTML
     function createEmployeeCard(employee) {
         return `
             <div class="employee-card" data-employee-id="${employee.id}">
@@ -28,11 +26,8 @@ const App = (function() {
         `;
     }
 
-    // Render employee list based on current page and filters
     function renderEmployees() {
-        employeeListContainer.innerHTML = ''; // Clear existing cards
-
-        // Apply filters and sort order from FilterController
+        employeeListContainer.innerHTML = '';
     
         filteredAndSortedEmployees = FilterController.applyAllFiltersAndSort(employees);
 
@@ -51,13 +46,12 @@ const App = (function() {
         attachCardEventListeners();
     }
 
-    // Render pagination controls
     function renderPagination() {
         paginationContainer.innerHTML = '';
         const totalPages = Math.ceil(filteredAndSortedEmployees.length / itemsPerPage);
 
         if (totalPages <= 1) {
-            return; // No pagination needed for 1 or less pages
+            return; 
         }
 
         const prevBtn = document.createElement('button');
@@ -96,7 +90,6 @@ const App = (function() {
         paginationContainer.appendChild(nextBtn);
     }
 
-    // Attach event listeners to dynamically created Edit/Delete buttons
     function attachCardEventListeners() {
         document.querySelectorAll('.btn-edit').forEach(button => {
             button.onclick = (event) => {
@@ -118,14 +111,13 @@ const App = (function() {
         });
     }
 
-    // CRUD Operations
     function addEmployee(employeeData) {
         const newId = nextEmployeeId++;
         const newEmployee = { ...employeeData, id: newId };
         mockEmployees.push(newEmployee);
-        employees = [...mockEmployees]; // Update local 'employees' array
-        currentPage = 1; // Go to first page on add
-        renderEmployees(); // Re-render to show new employee
+        employees = [...mockEmployees]; 
+        currentPage = 1; 
+        renderEmployees(); 
         FormController.hideForm();
         alert('Employee added successfully!');
     }
@@ -134,8 +126,8 @@ const App = (function() {
         const index = mockEmployees.findIndex(emp => emp.id === id);
         if (index !== -1) {
             mockEmployees[index] = { ...mockEmployees[index], ...updatedData };
-            employees = [...mockEmployees]; // Update local 'employees' array
-            renderEmployees(); // Re-render to show updated employee
+            employees = [...mockEmployees]; 
+            renderEmployees(); 
             FormController.hideForm();
             alert('Employee updated successfully!');
         } else {
@@ -146,46 +138,41 @@ const App = (function() {
     function deleteEmployee(id) {
         const initialLength = mockEmployees.length;
         mockEmployees = mockEmployees.filter(emp => emp.id !== id);
-        employees = [...mockEmployees]; // Update local 'employees' array
-
+        employees = [...mockEmployees]; 
         if (mockEmployees.length < initialLength) {
-            // Adjust current page if the last item on a page was deleted
             const totalPagesAfterDelete = Math.ceil(filteredAndSortedEmployees.length / itemsPerPage);
             if (currentPage > totalPagesAfterDelete) {
                 currentPage = Math.max(1, totalPagesAfterDelete);
             }
-            renderEmployees(); // Re-render the list
+            renderEmployees(); 
             alert('Employee deleted successfully!');
         } else {
             console.error('Employee not found for deletion:', id);
         }
     }
 
-    // Event Listeners for main controls
     function setupEventListeners() {
         addEmployeeBtn.addEventListener('click', () => FormController.showForm());
 
         sortBySelect.addEventListener('change', () => {
             FilterController.setSortBy(sortBySelect.value);
-            currentPage = 1; // Reset to page 1 on sort change
+            currentPage = 1;
             renderEmployees();
         });
 
         showEntriesSelect.addEventListener('change', () => {
             itemsPerPage = parseInt(showEntriesSelect.value);
-            currentPage = 1; // Reset to page 1 on entries change
+            currentPage = 1; 
             renderEmployees();
         });
 
-        // Initialize FilterController with render callback
         FilterController.init(renderEmployees);
     }
 
-    // Initial setup
     function init() {
-        employees = [...mockEmployees]; // Initialize working copy of employees
+        employees = [...mockEmployees];
         setupEventListeners();
-        renderEmployees(); // Initial render
+        renderEmployees(); 
     }
 
     return {
@@ -193,9 +180,8 @@ const App = (function() {
         addEmployee: addEmployee,
         updateEmployee: updateEmployee,
         deleteEmployee: deleteEmployee,
-        getEmployeeById: (id) => mockEmployees.find(emp => emp.id === id) // Expose for form pre-fill
+        getEmployeeById: (id) => mockEmployees.find(emp => emp.id === id) 
     };
 })();
 
-// Initialize the application when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', App.init);
