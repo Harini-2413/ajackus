@@ -26,5 +26,4 @@ const mockEmployees = [
     { id: 25, firstName: 'Yara', lastName: 'Roberts', email: 'yara.r@example.com', department: 'Sales', role: 'Account Executive' }
 ];
 
-// Simple ID counter for new employees
 let nextEmployeeId = mockEmployees.length > 0 ? Math.max(...mockEmployees.map(e => e.id)) + 1 : 1;
