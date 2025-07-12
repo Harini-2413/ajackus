@@ -12,11 +12,8 @@ const FilterController = (function() {
         department: '',
         role: ''
     };
-    let currentSortBy = 'firstName'; // Default sort
-
-    let renderCallback = null; // Callback to re-render employee list in App.js
-
-    // Debounce function to limit how often a function runs (e.g., for search input)
+    let currentSortBy = 'firstName'; 
+    let renderCallback = null; 
     function debounce(func, delay) {
         let timeout;
         return function(...args) {
@@ -26,11 +23,9 @@ const FilterController = (function() {
         };
     }
 
-    // Apply all active filters and sort order to the employee list
     function applyAllFiltersAndSort(employees) {
-        let result = [...employees]; // Create a shallow copy to work with
+        let result = [...employees];
 
-        // 1. Apply Search Term
         if (currentSearchTerm) {
             const lowerCaseSearch = currentSearchTerm.toLowerCase();
             result = result.filter(employee =>
@@ -40,7 +35,6 @@ const FilterController = (function() {
             );
         }
 
-        // 2. Apply Sidebar Filters
         if (currentFilters.firstName) {
             const lowerCaseFilter = currentFilters.firstName.toLowerCase();
             result = result.filter(employee =>
@@ -60,7 +54,6 @@ const FilterController = (function() {
             );
         }
 
-        // 3. Apply Sort Order
         result.sort((a, b) => {
             let valA = a[currentSortBy].toLowerCase();
             let valB = b[currentSortBy].toLowerCase();
@@ -73,7 +66,6 @@ const FilterController = (function() {
         return result;
     }
 
-    // Event handlers
     const handleSearchInput = debounce(() => {
         currentSearchTerm = searchInput.value.trim();
         if (renderCallback) renderCallback();
@@ -93,22 +85,19 @@ const FilterController = (function() {
         filterDepartmentInput.value = '';
         filterRoleInput.value = '';
         currentFilters = { firstName: '', department: '', role: '' };
-        document.getElementById('sort-by').value = 'firstName'; // Reset sort dropdown
+        document.getElementById('sort-by').value = 'firstName';
         currentSortBy = 'firstName';
 
         if (renderCallback) renderCallback();
     }
 
-    // Setters for external components (like App.js for sort)
     function setSortBy(value) {
         currentSortBy = value;
     }
 
-    // Initialization
+    
     function init(callback) {
-        renderCallback = callback; // Store the callback from App.js
-
-        // Add event listeners
+        renderCallback = callback; 
         searchInput.addEventListener('input', handleSearchInput);
         applyFiltersBtn.addEventListener('click', handleApplyFilters);
         resetFiltersBtn.addEventListener('click', handleResetFilters);
